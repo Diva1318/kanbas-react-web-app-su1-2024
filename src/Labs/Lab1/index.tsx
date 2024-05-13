@@ -1,6 +1,7 @@
 export default function Lab1() {
     return (
       <div id="wd-lab1">
+        <label><strong>Divya Chenduran Ayyemperumal</strong></label>
         <h2>Lab 1</h2>
         <h3>HTML Examples</h3>
         <div id="wd-h-tag">
@@ -109,7 +110,7 @@ My favorite books (in no particular order)
   <br />
   Loading a local image:
   <br />
-  <img id="wd-teslabot" src="images/teslabot.jpg" height="200px" />
+  <img id="wd-teslabot" src="images/images.jpeg" height="200px" />
 </div>
 
 {/*----------------------forms----------------------*/}
@@ -235,10 +236,12 @@ My favorite books (in no particular order)
 </div>
 <div><h4>Anchor tag</h4>
 
-Please
-<a href="https://www.lipsum.com">click here</a>
+Please &nbsp;
+<a href="https://www.lipsum.com">click here &nbsp;</a>
 to get dummy text<br/>
-
+Click here &nbsp;
+<a href="https://github.com/Diva1318/kanbas-react-web-app-su1-2024/tree/a1"><strong>Github</strong></a>
+<br/>
 </div>
 </div>
       </div>);}

@@ -5,7 +5,8 @@ export default function Dashboard() {
         <h2 id="wd-dashboard-published">Published Courses (12)</h2> <hr />
         <div id="wd-dashboard-courses">
           <div className="wd-dashboard-course">
-            <img src="C:\Users\Diva1318\OneDrive\Desktop\reactjs.webp" width={200} />
+            <img src="/images/reactjs.webp" width={200} />
+            
             <div>
               <a className="wd-dashboard-course-link"
                 href="#/Kanbas/Courses/Home">
@@ -13,6 +14,22 @@ export default function Dashboard() {
               </a>
               <p className="wd-dashboard-course-title">
                 Full Stack software developer
+              </p>
+              <img src="/images/frontend.png" width={200} /> <br />
+              <a className="wd-dashboard-course-link"
+                href="#/Kanbas/Courses/Home">
+                CS4566  
+              </a>
+              <p className="wd-dashboard-course-title">
+                Front End developer
+              </p>
+              <img src="/images/nodejs.png" width={150} /> <br />
+              <a className="wd-dashboard-course-link"
+                href="#/Kanbas/Courses/Home">
+                CS7453  
+              </a>
+              <p className="wd-dashboard-course-title">
+                Node.Js
               </p>
               <a href="#/Kanbas/Courses/Home"> Go </a>
             </div>
