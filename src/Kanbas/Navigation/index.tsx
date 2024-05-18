@@ -46,6 +46,10 @@ export default function KanbasNavigation() {
         className="list-group-item text-white
         bg-black text-center border-0">
         <AiOutlineQuestionCircle className="fs-1 text-danger" /><br />Help</a>
+        <a id="wd-labs-link" href="#/Labs"
+        className="list-group-item text-white
+        bg-black text-center border-0">
+        <AiOutlineSetting className="fs-1 text-danger" /><br />Labs</a>
       </div>
   );}
   
