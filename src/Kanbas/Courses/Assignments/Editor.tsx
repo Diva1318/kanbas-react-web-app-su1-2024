@@ -1,106 +1,110 @@
 export default function AssignmentEditor() {
     return (
       <div id="wd-assignments-editor">
-        <tr>
+        
+          
         <label htmlFor="wd-name"><strong>Assignment Name</strong></label>
+       
         <br /><br />
-        <input id="wd-name" value="A1 - ENV + HTML" />
-        <br /><br />
-        <textarea id="wd-description">
+        <div style={{width:"100%", display:"flex"}}>
+        <input id="wd-name" className="form-control mb-3"  value="A1" /> 
+        <br /><br />  </div>
+        <div >
+        <textarea id="wd-description" className="form-control mb-3" cols={30} rows={10} style={{width:"100%", display:"flex"}}>
           The assignment is available online Submit a
            jbjjbjlink to the landing page of knknkn
-        </textarea>
+        </textarea> </div>
         <br />
-        <table>
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-points">Points</label>
-            </td>
-            <td>
-              <input id="wd-points" value={100} />
-            </td>
-          </tr>
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-points">Assignment Group</label>
-            </td>
-            <td>
-              <select id="assignmentgrp">
-                <option value="assigments">ASSIGNMENTS</option>
-                </select> 
-            </td>
-          </tr>
-          <br></br>
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-points">Display Grade as</label>
-            </td>
-            <td>
-              <select id="assignmentgrp">
-                <option value="percentage">Percentage</option>
-                </select> 
-            </td>
-          </tr>
-          <br></br>
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-points">Submission Type</label>
-            </td>
-            <td>
-              <select id="assignmentgrp">
-                <option value="online">Online</option>
-                </select> 
-            </td>
+          <div style={{marginLeft:"100px"}}>
+
+          <div className="d-flex align-items-center mb-3">
+          <label htmlFor="wd-points" className="me-2" style={{marginLeft:"87px"}}>Points</label>
+          <input id="wd-points" className="form-control" style={{ width: "100%" }} value={100} />
+          </div>   
          
-          </tr>
-          <td></td>
-            <td>
-            <label>Online Entry Options</label>
-            <br/>
-            <input type="checkbox"
-            name="text-entry" id="textentry"/>
-            <label htmlFor="textentry">Text Entry</label><br/>
-           
-            <input type="checkbox"
-            name="text-entry" id="website"/>
-            <label htmlFor="website">Website URL</label><br/>
+          <div  className="d-flex align-items-center mb-3" >
+              <label htmlFor="wd-points" className="me-2" style={{whiteSpace:"nowrap"}}>Assignment Group</label>
+              <select className="form-select" id="assignmentgrp">
+                <option id="wd-points" className="form-control" style={{ width: "100%" }}  value="assigments">ASSIGNMENTS</option>
+                </select> 
+          </div>
+
+          
+            <div  className="d-flex align-items-center mb-3" >
+              <label htmlFor="wd-points" className="me-2" style={{whiteSpace:"nowrap"}}>Display Grade as Group</label>
+              <select className="form-select" id="assignmentgrp"style={{ width: "100%" }}>
+                <option id="wd-points" className="form-control"  value="assigments">Percentage</option>
+                </select> 
+          </div>
+         
+         
             
-            <input type="checkbox"
-            name="text-entry" id="media"/>
-            <label htmlFor="media">Media Recordings</label><br/>
-            
-            <input type="checkbox"
-            name="text-entry" id="student"/>
-            <label htmlFor="student">Student Annotation</label><br/>
-            
-            <input type="checkbox"
-            name="text-entry" id="files"/>
-            <label htmlFor="files">File Uploads</label><br/>
-            </td>
-            
-            
-    <tr>
-        <td align="right" valign="top"><label>Assign</label></td>
-         <label htmlFor="assign">Assign</label><br/>
-        <input id="assign" placeholder="Everyone" /> <br />
-        <br/>
-        <label htmlFor="due">Due</label><br/>
-        <input type= "date" id="due" value="2024-05-13"></input><br />
-        <br/>
-        <tr>
-            <td>
-        <label htmlFor="ava">Available From</label><br/>
-        </td>
-        <td><label htmlFor="unt">Until</label><br/></td>
-        </tr>
-        <tr>
-            <td><input type= "date" id="ava" value="2024-06-05"></input></td>
-            <td><input type= "date" id="unt" value="2024-06-20"></input></td>
-        </tr>
-        
-    </tr>
-   
+    <div className="d-flex align-items-center mb-3">
+    <label htmlFor="submissionType" style={{whiteSpace:"nowrap"}} className="me-2">Submission Type</label>
+    <div className="card p-3 mt-3" style={{width:"100%"}}>
+      <div>
+      <select id="submissionType" className="form-select mb-3">
+      <option value="online">Online</option>
+    </select>
+      </div>
+      <h6>Online Entry Options</h6>
+      <div className="form-check">
+        <input type="checkbox" className="form-check-input" id="textEntry"/>
+        <label className="form-check-label" htmlFor="textEntry">Text Entry</label>
+      </div>
+      <div className="form-check">
+        <input type="checkbox" className="form-check-input" id="website"/>
+        <label className="form-check-label" htmlFor="website">Website URL</label>
+      </div>
+      <div className="form-check">
+        <input type="checkbox" className="form-check-input" id="media"/>
+        <label className="form-check-label" htmlFor="media">Media Recordings</label>
+      </div>
+      <div className="form-check">
+        <input type="checkbox" className="form-check-input" id="student"/>
+        <label className="form-check-label" htmlFor="student">Student Annotation</label>
+      </div>
+      <div className="form-check">
+        <input type="checkbox" className="form-check-input" id="files"/>
+        <label className="form-check-label" htmlFor="files">File Uploads</label>
+      </div>
+    </div>
+    </div>
+  
     
+         
+  
+   
+   
+
+
+  <div className="d-flex align-items-center mb-3">
+  <label htmlFor="assign" style={{whiteSpace:"nowrap"}} className="me-2">Assign</label>
+    <div className="card p-3" style={{width:"100%"}}>
+      <div className="mb-3">
+        <label className="form-label" htmlFor="assign">Assign to</label>
+        <input type="text" id="assign" className="form-control" placeholder="Everyone" />
+      </div>
+      <div className="mb-3">
+        <label className="form-label" htmlFor="due">Due</label>
+        <input type="datetime-local" id="due" className="form-control" value="2024-05-13T23:59" />
+      </div>
+      <div className="row">
+        <div className="col">
+          <label className="form-label" htmlFor="ava">Available from</label>
+          <input type="date" id="ava" className="form-control" value="2024-06-05" />
+        </div>
+        <div className="col">
+          <label className="form-label" htmlFor="unt">Until</label>
+          <input type="date" id="unt" className="form-control" value="2024-06-20" />
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    <tr>
+        <table>
+
         </table>
         <hr/>
         </tr>
@@ -111,6 +115,7 @@ export default function AssignmentEditor() {
             <button id="save" type="button">Save</button>
             </td>
             </tr>
+      </div>
       </div>
   );
 <div>
