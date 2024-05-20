@@ -15,59 +15,62 @@ export default function AssignmentEditor() {
            jbjjbjlink to the landing page of knknkn
         </textarea> </div>
         <br />
-          <div style={{marginLeft:"100px"}}>
+          <form>
+          <div  style={{marginLeft:"100px"}}>
 
-          <div className="d-flex align-items-center mb-3">
-          <label htmlFor="wd-points" className="me-2" style={{marginLeft:"87px"}}>Points</label>
-          <input id="wd-points" className="form-control" style={{ width: "100%" }} value={100} />
+          <div className="d-flex justify-content-end align-items-center mb-3">
+          <label htmlFor="wd-points" className="me-2 form-label" style={{marginLeft:"87px"}}>Points</label>
+          <input id="wd-points" className="form-control" style={{ width: "1000px" }} value={100} />
           </div>   
          
-          <div  className="d-flex align-items-center mb-3" >
-              <label htmlFor="wd-points" className="me-2" style={{whiteSpace:"nowrap"}}>Assignment Group</label>
-              <select className="form-select" id="assignmentgrp">
-                <option id="wd-points" className="form-control" style={{ width: "100%" }}  value="assigments">ASSIGNMENTS</option>
+          <div  className="d-flex justify-content-end align-items-center mb-3" >
+              <label htmlFor="wd-points" className="me-2 form-label" style={{whiteSpace:"nowrap"}}>Assignment Group</label>
+              <select className="form-select" style={{ width: "1000px" }} id="assignmentgrp">
+                <option id="wd-points" className="form-control"   value="assigments">ASSIGNMENTS</option>
                 </select> 
           </div>
 
           
-            <div  className="d-flex align-items-center mb-3" >
-              <label htmlFor="wd-points" className="me-2" style={{whiteSpace:"nowrap"}}>Display Grade as Group</label>
-              <select className="form-select" id="assignmentgrp"style={{ width: "100%" }}>
+            <div  className="d-flex justify-content-end align-items-center mb-3" >
+              <label htmlFor="wd-points" className="me-2 form-label" style={{whiteSpace:"nowrap"}}>Display Grade as Group</label>
+              <select className="form-select" id="assignmentgrp"style={{ width: "1000px" }}>
                 <option id="wd-points" className="form-control"  value="assigments">Percentage</option>
                 </select> 
           </div>
          
          
             
-    <div className="d-flex align-items-center mb-3">
-    <label htmlFor="submissionType" style={{whiteSpace:"nowrap"}} className="me-2">Submission Type</label>
+    <div  className="d-flex justify-content-end align-items-center mb-3">
+      <div style={{ width: "1130px" }} className="d-flex align-items-start">
+    <label htmlFor="submissionType" style={{whiteSpace:"nowrap", marginTop:"40px"}} className=" form-label me-2">Submission Type</label>
     <div className="card p-3 mt-3" style={{width:"100%"}}>
       <div>
-      <select id="submissionType" className="form-select mb-3">
+      <select  id="submissionType" className="form-select mb-3">
       <option value="online">Online</option>
     </select>
       </div>
       <h6>Online Entry Options</h6>
       <div className="form-check">
         <input type="checkbox" className="form-check-input" id="textEntry"/>
-        <label className="form-check-label" htmlFor="textEntry">Text Entry</label>
+        <label className="form-check-label form-label" htmlFor="textEntry">Text Entry</label>
       </div>
       <div className="form-check">
         <input type="checkbox" className="form-check-input" id="website"/>
-        <label className="form-check-label" htmlFor="website">Website URL</label>
+        <label className="form-check-label form-label" htmlFor="website">Website URL</label>
       </div>
       <div className="form-check">
         <input type="checkbox" className="form-check-input" id="media"/>
-        <label className="form-check-label" htmlFor="media">Media Recordings</label>
+        <label className="form-check-label form-label" htmlFor="media">Media Recordings</label>
       </div>
       <div className="form-check">
         <input type="checkbox" className="form-check-input" id="student"/>
-        <label className="form-check-label" htmlFor="student">Student Annotation</label>
+        <label className="form-check-label form-label" htmlFor="student">Student Annotation</label>
       </div>
       <div className="form-check">
         <input type="checkbox" className="form-check-input" id="files"/>
-        <label className="form-check-label" htmlFor="files">File Uploads</label>
+        <label className="form-check-label form-label" htmlFor="files">File Uploads</label>
       </div>
+    </div>
     </div>
     </div>
   
@@ -75,12 +78,11 @@ export default function AssignmentEditor() {
          
   
    
-   
 
 
-  <div className="d-flex align-items-center mb-3">
+  <div  className="d-flex justify-content-end align-items-center mb-3">
   <label htmlFor="assign" style={{whiteSpace:"nowrap"}} className="me-2">Assign</label>
-    <div className="card p-3" style={{width:"100%"}}>
+    <div className="card p-3" style={{width:"1000px"}}>
       <div className="mb-3">
         <label className="form-label" htmlFor="assign">Assign to</label>
         <input type="text" id="assign" className="form-control" placeholder="Everyone" />
@@ -102,24 +104,17 @@ export default function AssignmentEditor() {
     </div>
     </div>
     
-    <tr>
-        <table>
-
-        </table>
+    
         <hr/>
-        </tr>
-        <tr>
         
-            <td align="right">
-            <button id="cancel" type="button">Cancel </button> &nbsp;
-            <button id="save" type="button">Save</button>
-            </td>
-            </tr>
+        <div style={{width:"100%"}} className="d-flex justify-content-end">
+            <button id="cancel" className="btn btn-light" type="button">Cancel </button> &nbsp;
+            <button id="save" className="btn btn-danger" type="button">Save</button>
+            </div>
       </div>
+      </form>
       </div>
   );
-<div>
-<button id="cancel" type="button">Cancel</button>
-</div>}
+}
   
   

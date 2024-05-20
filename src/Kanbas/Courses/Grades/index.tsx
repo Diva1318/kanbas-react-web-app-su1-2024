@@ -5,6 +5,7 @@ import { MdArrowDownward, MdArrowDropDown, MdOutlineArrowDropDown } from 'react-
 import { BiDownArrow, BiDownArrowAlt, BiDownArrowCircle, BiImport } from 'react-icons/bi';
 import { FaFileExport, FaFileImport } from 'react-icons/fa6';
 import { LiaLevelDownAltSolid } from 'react-icons/lia';
+import { createEnumDeclaration } from 'typescript';
 
 const students = [
   { name: 'Jane Adams', A1: '100%', A2: '96.67%', A3: '92.18%', A4: '66.22%' },
@@ -61,14 +62,16 @@ export default function Grades () {
           type="text"
           className="form-control border-start-0"
           placeholder="Search Assignments..."
-        />
+        />  <span className="input-group-text  ">
+        <MdOutlineArrowDropDown/>
+      </span>
           </div>
         </div>
       </div>
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th style={{textAlign:"center"}}>Student Name</th>
+            <th style={{textAlign:"center", marginBottom:"200px"}}>Student Name</th>
             <th>A1 SETUP<br /><small>Out of 100</small></th>
             <th>A2 HTML<br /><small>Out of 100</small></th>
             <th>A3 CSS<br /><small>Out of 100</small></th>
