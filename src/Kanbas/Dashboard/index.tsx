@@ -23,7 +23,7 @@ export default function Dashboard() {
             </div>
             <div className="wd-dashboard-course col" style={{ width: "300px" }}>
             <div className="card">
-            <img src="/images/reactjs.webp" /> 
+            <img src="/images/nodejsf.png" /> 
             <div className="card-body">
             <a className="wd-dashboard-course-link"
                href="#/Kanbas/Courses/1234/Home"
