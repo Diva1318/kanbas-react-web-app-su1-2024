@@ -7,9 +7,13 @@ import LessonControlButtons from "../Modules/LessonControlButtons";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { LiaStickyNote } from "react-icons/lia";
 import GreenCheckmark from "../Modules/GreenCheckmark";
-
+import { assignments } from "../../Database";
+import { useParams } from "react-router";
 
 export default function Assignments() {
+  const { aid } = useParams();
+  const courseAssignments = assignments.filter((assignment) => assignment._id === aid);
+console.log(courseAssignments)
     return (
       
       <div id="wd-assignments">
@@ -63,6 +67,7 @@ export default function Assignments() {
         </div> 
         
         <ul className="wd-lessons list-group rounded-0">
+        {courseAssignments.map((assignment) => (
         <li className="wd-lesson list-group-item p-3 ps-1">
           <div style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         <div style={{display:"flex",alignItems:"center"}}>
@@ -71,14 +76,16 @@ export default function Assignments() {
         <div>
         <a className="wd-assignment-link"
               href="#/Kanbas/Courses/1234/Assignments/123" >
-              A1 
+              {assignment._id} 
             </a> 
             <p> <span className="text-danger">
               Multiple Modules </span>| <strong>Not available until</strong> May 7 at 12:00 am&nbsp;|<br></br><strong>Due&nbsp;</strong>May 13 at 11:59pm&nbsp;|&nbsp;100 pts</p>          
             </div></div> <LessonControlButtons /></div>
             
         </li>
+        ))}
         </ul>
+
 
         <ul className="wd-assignments-a2 list-group rounded-0">
         <li className="wd-assignments-list list-group-item p-3 ps-1">
@@ -98,27 +105,12 @@ export default function Assignments() {
         </li>
         </ul>
 
-        <ul className="wd-assignments-a3 list-group rounded-0">
-        <li className="wd-assignments-list list-group-item p-3 ps-1">
-          <div style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-        <div style={{display:"flex",alignItems:"center"}}>
-        <BsGripVertical className="me-1 fs-3"/>
-        <BiNotepad style={{marginRight:"20px"}} /> 
-        <div>
-        <a className="wd-assignment-link"
-              href="#/Kanbas/Courses/1234/Assignments/123" >
-              A3 
-            </a> 
-            <p> <span className="text-danger">
-              Multiple Modules </span>| <strong>Not available until</strong> May 20 at 12:00 am&nbsp;|<br></br><strong>Due&nbsp;</strong>May 27 at 11:59pm&nbsp;|&nbsp;100 pts</p>          
-            </div></div> <LessonControlButtons /></div>
-            
-        </li>
-        </ul>
+       
 
         </li>
         </ul>
       </div>
       </div>
+      
     );
 }  
