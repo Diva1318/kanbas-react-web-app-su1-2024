@@ -9,11 +9,12 @@ import { LiaStickyNote } from "react-icons/lia";
 import GreenCheckmark from "../Modules/GreenCheckmark";
 import { assignments } from "../../Database";
 import { useParams } from "react-router";
+import * as db from "../../Database";
+
 
 export default function Assignments() {
-  const { aid } = useParams();
-  const courseAssignments = assignments.filter((assignment) => assignment._id === aid);
-console.log(courseAssignments)
+  const { cid } = useParams();
+  const assigments = db.assignments;
     return (
       
       <div id="wd-assignments">
@@ -67,7 +68,10 @@ console.log(courseAssignments)
         </div> 
         
         <ul className="wd-lessons list-group rounded-0">
-        {courseAssignments.map((assignment) => (
+        {assigments
+          .filter((assignment: any) => assignment.course === cid)
+          .map((assignment: any) => (
+
         <li className="wd-lesson list-group-item p-3 ps-1">
           <div style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
         <div style={{display:"flex",alignItems:"center"}}>
@@ -75,8 +79,8 @@ console.log(courseAssignments)
         <BiNotepad style={{marginRight:"20px"}} /> 
         <div>
         <a className="wd-assignment-link"
-              href="#/Kanbas/Courses/1234/Assignments/123" >
-              {assignment._id} 
+              href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`} >
+              {assignment.title} 
             </a> 
             <p> <span className="text-danger">
               Multiple Modules </span>| <strong>Not available until</strong> May 7 at 12:00 am&nbsp;|<br></br><strong>Due&nbsp;</strong>May 13 at 11:59pm&nbsp;|&nbsp;100 pts</p>          
