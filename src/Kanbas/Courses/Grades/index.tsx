@@ -1,22 +1,22 @@
 import React from 'react';
+import * as db from "../../Database";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaSearch, FaFilter, FaUpload, FaDownload, FaCog } from 'react-icons/fa';
 import { MdArrowDownward, MdArrowDropDown, MdOutlineArrowDropDown } from 'react-icons/md';
 import { BiDownArrow, BiDownArrowAlt, BiDownArrowCircle, BiImport } from 'react-icons/bi';
 import { FaFileExport, FaFileImport } from 'react-icons/fa6';
 import { LiaLevelDownAltSolid } from 'react-icons/lia';
-import { createEnumDeclaration } from 'typescript';
+import { useParams } from 'react-router';
 
-const students = [
-  { name: 'Jane Adams', A1: '100%', A2: '96.67%', A3: '92.18%', A4: '66.22%' },
-  { name: 'Christina Allen', A1: '100%', A2: '100%', A3: '100%', A4: '100%' },
-  { name: 'Samreen Ansari', A1: '100%', A2: '100%', A3: '100%', A4: '100%' },
-  { name: 'Han Bao', A1: '100%', A2: '100%', A3: '88.03%', A4: '98.99%' },
-  { name: 'Mahi Sai Srinivas Bobbili', A1: '100%', A2: '96.67%', A3: '98.37%', A4: '100%' },
-  { name: 'Siran Cao', A1: '100%', A2: '100%', A3: '100%', A4: '100%' },
-];
 
 export default function Grades () {
+  const { eid,uid,gid,cid } = useParams();
+  const users = db.users;
+  const grades = db.grades;
+  const enrollments = db.enrollments;
+  const filteredEnrollments = enrollments.filter(el => el.course === cid)
+  console.log(cid);
+
   return (
 <div className="container mt-4">
 <div className="d-flex justify-content-end">
@@ -79,22 +79,23 @@ export default function Grades () {
           </tr>
         </thead>
         <tbody>
-          {students.map((student, index) => (
-            <tr key={index}>
-              <td>{student.name}</td>
-              <td>{student.A1}</td>
-              <td>{student.A2}</td>
-              <td>
-                {student.A3 === '88.03%' ? (
-                  <input type="text" className="form-control" defaultValue={student.A3} />
-                ) : (
-                  student.A3
-                )}
-              </td>
-              <td>{student.A4}</td>
-            </tr>
-          ))}
+          {filteredEnrollments.map((el, idx) => {
+            const currUser = users.find(user => user._id === el.user);
+            const currGrade = grades.find(grade => grade.student === el.user);
+            if (!currUser || !currGrade) return null;
+            return (
+              <tr key={idx}>
+                <td>{currUser.firstName} {currUser.lastName}</td>
+                <td>{currGrade.gradeA1}</td>
+                <td>{currGrade.gradeA2}</td>
+                <td>{currGrade.gradeA3}</td>
+                <td>{currGrade.gradeA4}</td>
+              </tr>
+            );
+          })}
         </tbody>
+
+      
       </table>
     </div>
   );

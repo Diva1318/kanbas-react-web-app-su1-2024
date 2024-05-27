@@ -89,28 +89,6 @@ export default function Assignments() {
         </li>
         ))}
         </ul>
-
-
-        <ul className="wd-assignments-a2 list-group rounded-0">
-        <li className="wd-assignments-list list-group-item p-3 ps-1">
-          <div style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-        <div style={{display:"flex",alignItems:"center"}}>
-        <BsGripVertical className="me-1 fs-3"/>
-        <BiNotepad style={{marginRight:"20px"}} /> 
-        <div>
-        <a className="wd-assignment-link"
-              href="#/Kanbas/Courses/1234/Assignments/123" >
-              A2
-            </a> 
-            <p> <span className="text-danger">
-              Multiple Modules </span>| <strong>Not available until</strong> May 13 at 12:00 am&nbsp;|<br></br><strong>Due&nbsp;</strong>May 20 at 11:59pm&nbsp;|&nbsp;100 pts</p>          
-            </div></div> <LessonControlButtons /></div>
-            
-        </li>
-        </ul>
-
-       
-
         </li>
         </ul>
       </div>

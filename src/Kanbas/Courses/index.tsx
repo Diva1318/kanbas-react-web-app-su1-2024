@@ -1,6 +1,6 @@
 import CoursesNavigation from "./Navigation";
 import Modules from "./Modules";
-import { courses } from "../Database";
+import { assignments, courses, users } from "../Database";
 
 import Home from "./Home";
 import Grades from "./Grades";
@@ -10,8 +10,11 @@ import { Navigate, Route, Routes, useParams, useLocation   } from "react-router"
 import { FaBars } from "react-icons/fa";
 import { FaAlignJustify } from "react-icons/fa6";
 export default function Courses() {
-  const { cid } = useParams();
+  const { cid, aid,uid} = useParams();
   const course = courses.find((course) => course._id === cid);
+  const assignment = assignments.find((assignment) => assignment._id === aid);
+  const user = users.find((user) => user._id === uid);
+
   const { pathname } = useLocation();
   return (
     <div id="wd-courses">
@@ -35,9 +38,9 @@ export default function Courses() {
               <Route path="Modules" element={<Modules/>} />
               <Route path="Assignments"
                      element={<Assignments/>} />
-              <Route path="Assignments/:id"
+              <Route path="Assignments/:aid"
                      element={<AssignmentEditor/>} />
-              <Route path="Grades" element={<Grades/>} />
+              <Route path="Grades/" element={<Grades/>} />
             </Routes>
             </div>
   </div>

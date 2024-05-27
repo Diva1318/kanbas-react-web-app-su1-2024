@@ -15,7 +15,7 @@ export default function KanbasNavigation() {
   ];
 
     return (
-      <div id="wd-kanbas-navigation" className="list-group rounded-0">
+      <div id="wd-kanbas-navigation" className="list-group rounded-0 " >
         <a id="wd-neu-link" target="_blank" 
         href="https://www.northeastern.edu/"
         className="list-group-item bg-black border-0">
