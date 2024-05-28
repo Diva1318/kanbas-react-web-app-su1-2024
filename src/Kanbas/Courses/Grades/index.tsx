@@ -10,11 +10,14 @@ import { useParams } from 'react-router';
 
 
 export default function Grades () {
-  const { eid,uid,gid,cid } = useParams();
+  const { eid,uid,gid,cid,aid } = useParams();
   const users = db.users;
   const grades = db.grades;
   const enrollments = db.enrollments;
+  const assignments = db.assignments;
   const filteredEnrollments = enrollments.filter(el => el.course === cid)
+  const filteredAss = assignments.filter(as => as.course === cid)
+  
   console.log(cid);
 
   return (
@@ -69,13 +72,17 @@ export default function Grades () {
         </div>
       </div>
       <table className="table table-bordered">
-        <thead>
+      
+      <thead>
           <tr>
-            <th style={{textAlign:"center", marginBottom:"200px"}}>Student Name</th>
-            <th>A1 SETUP<br /><small>Out of 100</small></th>
-            <th>A2 HTML<br /><small>Out of 100</small></th>
-            <th>A3 CSS<br /><small>Out of 100</small></th>
-            <th>A4 BOOTSTRAP<br /><small>Out of 100</small></th>
+            <th style={{ textAlign: "center" }}>Student Name</th>
+            {filteredAss.map((assignment, idx) => (
+  <th key={idx}>
+    {assignment.title}
+    <br />
+    
+  </th>
+))}
           </tr>
         </thead>
         <tbody>
@@ -89,7 +96,7 @@ export default function Grades () {
                 <td>{currGrade.gradeA1}</td>
                 <td>{currGrade.gradeA2}</td>
                 <td>{currGrade.gradeA3}</td>
-                <td>{currGrade.gradeA4}</td>
+                {/* <td>{currGrade.gradeA4}</td> */}
               </tr>
             );
           })}
