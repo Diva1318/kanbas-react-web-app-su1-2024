@@ -1,98 +1,66 @@
-import { BiDownArrow, BiNotepad, BiSolidDownArrow } from "react-icons/bi";
-import { BsGripVertical, BsMenuDown, BsPlus } from "react-icons/bs";
-import { MdMargin } from "react-icons/md";
-import { FaSearch, FaPlus } from 'react-icons/fa';
-import { AiFillAccountBook } from "react-icons/ai";
-import LessonControlButtons from "../Modules/LessonControlButtons";
-import { IoEllipsisVertical } from "react-icons/io5";
-import { LiaStickyNote } from "react-icons/lia";
-import GreenCheckmark from "../Modules/GreenCheckmark";
-import { assignments } from "../../Database";
-import { useParams } from "react-router";
-import * as db from "../../Database";
-
+import AssignmentsControls from "./AssignmentsControls";
+import {BsGripVertical} from "react-icons/bs";
+import AssignmentControlButtons from "./AssignmentsControlButtons";
+import {BiCaretDown, BiEdit, BiNotepad} from "react-icons/bi";
+import LessonControlButtons from "./LessonControlButtons";
+import {useParams} from "react-router";
+import {deleteAssignment} from "./reducer";
+import {useSelector, useDispatch} from "react-redux";
 
 export default function Assignments() {
-  const { cid } = useParams();
-  const assigments = db.assignments;
-    return (
-      
-      <div id="wd-assignments">
-        <div style={{marginBottom: "20px"}}>
-        <div className="d-flex align-items-center mb-3">
-          <div style={{width:"100%",display:"flex",justifyContent:"space-between"}}>
-      <div className="input-group" style={{ width: '300px' }}>
-        <span className="input-group-text bg-white border-end-0">
-          <FaSearch />
-        </span>
-        <input 
-          type="text"
-          className="form-control border-start-0"
-          placeholder="Search..."
-        />
-      </div> 
-      <div>
-      <button className="btn btn-light ms-2 ">
-        <FaPlus className="me-1" />
-        Group
-      </button>
-      <button className="btn btn-danger ms-2">
-        <FaPlus className="me-1" />
-        Assignment
-      </button>
-      </div>
-        </div> </div>
-        
-        <ul id="wd-assignment" className="list-group rounded-0">
-        <li className="wd-module list-group-item p-0 mb-5 fs-5 border-silver">
-        <div className="wd-title p-3 ps-2 bg-silver" 
-        style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-          <div >
-        <h3 id="wd-assignments-title">
-        <BsGripVertical className="me-2 fs-3" />
-        <BiSolidDownArrow className="me-2 fs-6" />
-          ASSIGNMENTS 
-        </h3> </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
-  <div style={{
-    border: "1px solid #c7cdd158",
-    borderRadius: "25px",
-    padding: "5px 10px",
-    marginRight: "10px"
-  }}>
-    40% of Total
-  </div>
-  <BsPlus className="fs-4 me-2" />
-  <IoEllipsisVertical className="fs-4" />
-</div>
-        </div> 
-        
-        <ul className="wd-lessons list-group rounded-0">
-        {assigments
-          .filter((assignment: any) => assignment.course === cid)
-          .map((assignment: any) => (
+    const {cid} = useParams();
+    const {assignments} = useSelector((state: any) => state.assignmentsReducer);
+    console.log(assignments)
+    const cidAssignments = assignments.filter((assignment: any) => assignment.course === cid);
+    const dispatch = useDispatch();
 
-        <li className="wd-lesson list-group-item p-3 ps-1">
-          <div style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-        <div style={{display:"flex",alignItems:"center"}}>
-        <BsGripVertical className="me-1 fs-3"/>
-        <BiNotepad style={{marginRight:"20px"}} /> 
-        <div>
-        <a className="wd-assignment-link"
-              href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`} >
-              {assignment.title} 
-            </a> 
-            <p> <span className="text-danger">
-              Multiple Modules </span>| <strong>Not available until</strong> May 7 at 12:00 am&nbsp;|<br></br><strong>Due&nbsp;</strong>May 13 at 11:59pm&nbsp;|&nbsp;100 pts</p>          
-            </div></div> <LessonControlButtons /></div>
-            
-        </li>
-        ))}
-        </ul>
-        </li>
-        </ul>
-      </div>
-      </div>
-      
+    return (
+        <div id="wd-assignments">
+            <AssignmentsControls cid={cid!}/>
+            <ul id="wd-assignment-list" className="list-group rounded-0 my-4">
+                <div className="wd-title p-3 ps-2 bg-secondary mb-4">
+                    <BsGripVertical className="me-2 fs-3"/>
+                    <BiCaretDown className="me-2"/>
+                    Assignments
+                    <AssignmentControlButtons/>
+                </div>
+
+                {
+                    cidAssignments && cidAssignments.map((item: any) => (
+                        <li className="wd-assignment-list-item list-group-item p-3" style={{borderLeft: "4px solid green"}}>
+                            <div className="row align-items-center">
+                                <div className="col-auto">
+                                    <BsGripVertical className="fs-4"/>
+                                </div>
+                                <div className="col-auto">
+                                    <a className="wd-assignment-link text-dark link-underline link-underline-opacity-0"
+                                       href={`#/Kanbas/Courses/${cid}/Assignments/${assignments._id}`}>
+                                        <BiNotepad className="text-success fs-4"/>
+                                    </a>
+
+                                </div>
+                                <div className="col">
+                                    <a className="wd-assignment-link text-dark link-underline link-underline-opacity-0"
+                                       href={`#/Kanbas/Courses/${cid}/Assignments/${assignments._id}`}>
+                                    <h5>{item.title}</h5>
+                                    </a>
+                                    <p>
+                                        <span className="text-danger"> Multiple Modules </span>
+                                        | <strong>Available from</strong> {assignments.ava} | <strong>Until</strong> {assignments.until} | <strong>Due</strong> {assignments.due} | {assignments.points} pts
+                                    </p>
+                                </div>
+                                <div className="col float-end">
+                                    <LessonControlButtons assignmentId={item._id}
+                                                          deleteAssignment={(assignmentId) => {
+                                                              dispatch(deleteAssignment(assignmentId));
+                                                          }}/>
+                                </div>
+                            </div>
+                        </li>
+                    ))
+
+                }
+            </ul>
+        </div>
     );
-}  
+}

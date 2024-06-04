@@ -1,7 +1,7 @@
 import CoursesNavigation from "./Navigation";
 import Modules from "./Modules";
-import { assignments, courses, users } from "../Database";
-
+import { assignments, users } from "../Database";
+import assignmentEditor from "./Assignments/AssignmentEditor";
 import Home from "./Home";
 import Grades from "./Grades";
 import Assignments from "./Assignments";
@@ -9,7 +9,7 @@ import AssignmentEditor from "./Assignments/Editor";
 import { Navigate, Route, Routes, useParams, useLocation   } from "react-router";
 import { FaBars } from "react-icons/fa";
 import { FaAlignJustify } from "react-icons/fa6";
-export default function Courses() {
+export default function Courses({ courses }: { courses: any[]; }) {
   const { cid, aid,uid} = useParams();
   const course = courses.find((course) => course._id === cid);
   const assignment = assignments.find((assignment) => assignment._id === aid);
@@ -39,7 +39,7 @@ export default function Courses() {
               <Route path="Assignments"
                      element={<Assignments/>} />
               <Route path="Assignments/:aid"
-                     element={<AssignmentEditor/>} />
+                     element={<AssignmentEditor />} />
               <Route path="Grades/" element={<Grades/>} />
             </Routes>
             </div>

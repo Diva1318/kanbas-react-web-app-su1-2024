@@ -1,124 +1,90 @@
-import { useParams } from "react-router";
-import * as db from "../../Database";
+import {useLocation, useNavigate, useParams} from "react-router";
+import {Link} from "react-router-dom";
+import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {addAssignment} from "./reducer";
 export default function AssignmentEditor() {
-  const { aid } = useParams();
-  const assigments = db.assignments;
+    const dispatch = useDispatch();
+    const router = useNavigate();
+    const {cid} = useParams();
+    const {pathname} = useLocation();
+    const aid = pathname.split("/").pop();
+    const [assignment, setAssignment] = useState({
+        course: cid,title: '',description: '',points: 100,due: '',available: '',until: ''
+    });
+    const handleChange = (e: any) => {
+        const value = e.target.value;
+        setAssignment({...assignment, [e.target.name]: value});
+    };
+    const handleAddAssignment = () => {
+        dispatch(addAssignment(assignment));
+        router(`/Kanbas/Courses/${cid}/Assignments`);
+    }
     return (
-      <div id="wd-assignments-editor">
-        
-          
-        <label htmlFor="wd-name"><strong>Assignment Name</strong></label>
-       
-        <br /><br />
-        {assigments
-          .filter((assignment: any) => assignment._id === aid)
-          .map((assignment: any) => (
-        <><><div style={{ width: "100%", display: "flex" }}>
-              <input id="wd-name" className="form-control mb-3" value={assignment.title} />
-              <br /><br />  </div><div>
-                <textarea id="wd-description" className="form-control mb-3" cols={4} rows={10} style={{ width: "100%", display: "flex" }}>
-                  {assignment.desc}
-
-                </textarea> </div></><br /><form>
-                <div style={{ marginLeft: "100px" }}>
-
-                  <div className="d-flex justify-content-end align-items-center mb-3">
-                    <label htmlFor="wd-points" className="me-2 form-label" style={{ marginLeft: "87px" }}>Points</label>
-                    <input id="wd-points" className="form-control" style={{ width: "1000px" }} value={assignment.points} />
-                  </div>
-
-                  <div className="d-flex justify-content-end align-items-center mb-3">
-                    <label htmlFor="wd-points" className="me-2 form-label" style={{ whiteSpace: "nowrap" }}>Assignment Group</label>
-                    <select className="form-select" style={{ width: "1000px" }} id="assignmentgrp">
-                      <option id="wd-points" className="form-control" value="assigments">ASSIGNMENTS</option>
-                    </select>
-                  </div>
-
-
-                  <div className="d-flex justify-content-end align-items-center mb-3">
-                    <label htmlFor="wd-points" className="me-2 form-label" style={{ whiteSpace: "nowrap" }}>Display Grade as Group</label>
-                    <select className="form-select" id="assignmentgrp" style={{ width: "1000px" }}>
-                      <option id="wd-points" className="form-control" value="assigments">Percentage</option>
-                    </select>
-                  </div>
-
-
-
-                  <div className="d-flex justify-content-end align-items-center mb-3">
-                    <div style={{ width: "1130px" }} className="d-flex align-items-start">
-                      <label htmlFor="submissionType" style={{ whiteSpace: "nowrap", marginTop: "40px" }} className=" form-label me-2">Submission Type</label>
-                      <div className="card p-3 mt-3" style={{ width: "100%" }}>
-                        <div>
-                          <select id="submissionType" className="form-select mb-3">
-                            <option value="online">Online</option>
-                          </select>
-                        </div>
-                        <h6>Online Entry Options</h6>
-                        <div className="form-check">
-                          <input type="checkbox" className="form-check-input" id="textEntry" />
-                          <label className="form-check-label form-label" htmlFor="textEntry">Text Entry</label>
-                        </div>
-                        <div className="form-check">
-                          <input type="checkbox" className="form-check-input" id="website" />
-                          <label className="form-check-label form-label" htmlFor="website">Website URL</label>
-                        </div>
-                        <div className="form-check">
-                          <input type="checkbox" className="form-check-input" id="media" />
-                          <label className="form-check-label form-label" htmlFor="media">Media Recordings</label>
-                        </div>
-                        <div className="form-check">
-                          <input type="checkbox" className="form-check-input" id="student" />
-                          <label className="form-check-label form-label" htmlFor="student">Student Annotation</label>
-                        </div>
-                        <div className="form-check">
-                          <input type="checkbox" className="form-check-input" id="files" />
-                          <label className="form-check-label form-label" htmlFor="files">File Uploads</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-
-
-
-
-
-                  <div className="d-flex justify-content-end align-items-center mb-3">
-                    <label htmlFor="assign" style={{ whiteSpace: "nowrap" }} className="me-2">Assign</label>
-                    <div className="card p-3" style={{ width: "1000px" }}>
-                      <div className="mb-3">
-                        <label className="form-label" htmlFor="assign">Assign to</label>
-                        <input type="text" id="assign" className="form-control" placeholder="Everyone" />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label" htmlFor="due">Due</label>
-                        <input type="datetime-local" id="due" className="form-control" value={assignment.due}/>
-                      </div>
-                      <div className="row">
-                        <div className="col">
-                          <label className="form-label" htmlFor="ava">Available from</label>
-                          <input type="date" id="ava" className="form-control" value={assignment.ava} />
-                        </div>
-                        <div className="col">
-                          <label className="form-label" htmlFor="unt">Until</label>
-                          <input type="date" id="unt" className="form-control" value={assignment.until} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <hr />
-
-                  <div style={{ width: "100%" }} className="d-flex justify-content-end">
-                    <button id="cancel" className="btn btn-light" type="button">Cancel </button> &nbsp;
-                    <button id="save" className="btn btn-danger" type="button">Save</button>
-                  </div>
+        <div id="wd-assignments-editor">
+            <div className="container">
+                <div className="row input-group mb-2">
+                    <label htmlFor="wd-name" className="form-label">Assignment Name</label>
+                    <input id="wd-name" className="form-control" name="title" value={assignment.title}
+                           onChange={handleChange}/>
                 </div>
-              </form></> ))}
-      </div>
-  );
+                <div className="row input-group mb-2">
+                      <textarea id="wd-description" className="form-control" rows={10} cols={60}
+                                onChange={handleChange} name="description">
+                            {assignment.description}
+                        </textarea>
+                </div>
+                <div className="row mb-2">
+                    <div className="col-3">
+                        <label htmlFor="wd-points" className="col-form-label float-end">Points</label>
+                    </div>
+                    <div className="col">
+                        <input id="wd-points" type="number" name="points" className="form-control"
+                               onChange={handleChange}
+                               value={assignment.points}/>
+                    </div>
+                </div>
+                <div className="row mb-2">
+                    <div className="col-3">
+                        <label htmlFor="wd-assign" className="col-form-label float-end">Assign</label>
+                    </div>
+                    <div className="col">
+                        <div className="card">
+                            <div className="card-body">
+                                <div className="row mt-4">
+                                    <label htmlFor="wd-due-date"><b>Due</b></label>
+                                    <input id="wd-due-date" type="date" className="form-control"
+                                           value={assignment.due} name="due" onChange={handleChange}/>
+                                </div>
+                                <div className="row my-2">
+                                    <div className="col">
+                                        <label htmlFor="wd-available-from"><b>Available from</b></label>
+                                        <input id="wd-available-from" type="date" className="form-control"
+                                               value={assignment.available} name="available" onChange={handleChange}/>
+                                    </div>
+                                    <div className="col">
+                                        <label htmlFor="wd-available-until"><b>Until</b></label>
+                                        <input id="wd-available-until" type="date" name="until"
+                                               className="form-control" value={assignment.until}
+                                               onChange={handleChange}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="row mt-3">
+                    <hr/>
+                </div>
+                <div className="mb-2">
+                    <input type="button" className="btn btn-danger float-end ms-2" value="Save"
+                           onClick={handleAddAssignment}/>
+                    <Link key={'cancel'} to={`/Kanbas/Courses/${cid}/Assignments`}>
+                        <input type="button" className="btn btn-secondary float-end" value="Cancel"/>
+                    </Link>
+                </div>
+                <div className="row" style={{height: '30px', width: '100%'}}></div>
+            </div>
+        </div>
+    )
 }
-  
-  
