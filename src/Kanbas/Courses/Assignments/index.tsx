@@ -35,19 +35,19 @@ export default function Assignments() {
                                 </div>
                                 <div className="col-auto">
                                     <a className="wd-assignment-link text-dark link-underline link-underline-opacity-0"
-                                       href={`#/Kanbas/Courses/${cid}/Assignments/${assignments._id}`}>
+                                       href={`#/Kanbas/Courses/${cid}/Assignments/${item._id}`}>
                                         <BiNotepad className="text-success fs-4"/>
                                     </a>
 
                                 </div>
                                 <div className="col">
                                     <a className="wd-assignment-link text-dark link-underline link-underline-opacity-0"
-                                       href={`#/Kanbas/Courses/${cid}/Assignments/${assignments._id}`}>
+                                       href={`#/Kanbas/Courses/${cid}/Assignments/${item._id}`}>
                                     <h5>{item.title}</h5>
                                     </a>
                                     <p>
                                         <span className="text-danger"> Multiple Modules </span>
-                                        | <strong>Available from</strong> {assignments.ava} | <strong>Until</strong> {assignments.until} | <strong>Due</strong> {assignments.due} | {assignments.points} pts
+                                        | <strong>Available from</strong> {item.ava} | <strong>Until</strong> {item.until} | <strong>Due</strong> {item.due} | {item.points} pts
                                     </p>
                                 </div>
                                 <div className="col float-end">

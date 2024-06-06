@@ -1,19 +1,28 @@
 import {useLocation, useNavigate, useParams} from "react-router";
 import {addAssignment} from "./reducer";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
+import ass from "../../Database/assignment.json";
 
 export default function AssignmentEditor() {
     const dispatch = useDispatch();
     const router = useNavigate();
-    const {cid} = useParams();
+    const {cid,aid} = useParams();
+    console.log(useParams());
     const {pathname} = useLocation();
-    const aid = pathname.split("/").pop();
+    // const aid = pathname.split("/").pop();
     const [assignment, setAssignment] = useState({
-        course: cid,title: '',description: '',points: 100,due: '',available: '',until: ''
+      _id: "",
+      points: "",
+      title: "",
+      course: "",
+      desc: "",
+      due: "",
+      ava: "",
+      until: ""
     });
-    const handleChange = (e: any) => {
+        const handleChange = (e: any) => {
         const value = e.target.value;
         setAssignment({...assignment, [e.target.name]: value});
     };
@@ -21,6 +30,28 @@ export default function AssignmentEditor() {
         dispatch(addAssignment(assignment));
         router(`/Kanbas/Courses/${cid}/Assignments`);
     }
+    
+    useEffect(() => {
+      const foundAssignment = ass.find(a => a._id === aid);
+    
+      if (foundAssignment) {
+        setAssignment(foundAssignment);
+      } else {
+        setAssignment({
+          _id: "",
+          points: "",
+          title: "",
+          course: "",
+          desc: "",
+          due: "",
+          ava: "",
+          until: ""
+        });
+        console.error("Assignment not found");
+      }
+    }, []);
+    
+
     return (
         <div id="wd-assignments-editor">
             <div className="container">
@@ -31,8 +62,8 @@ export default function AssignmentEditor() {
                 </div>
                 <div className="row input-group mb-2">
                       <textarea id="wd-description" className="form-control" rows={10} cols={60}
-                                onChange={handleChange} name="description">
-                            {assignment.description}
+                                onChange={handleChange} name="description" value = {assignment.desc}>
+                            
                         </textarea>
                 </div>
                 <div className="row mb-2">
@@ -61,7 +92,7 @@ export default function AssignmentEditor() {
                                     <div className="col">
                                         <label htmlFor="wd-available-from"><b>Available from</b></label>
                                         <input id="wd-available-from" type="date" className="form-control"
-                                               value={assignment.available} name="available" onChange={handleChange}/>
+                                               value={assignment.ava} name="available" onChange={handleChange}/>
                                     </div>
                                     <div className="col">
                                         <label htmlFor="wd-available-until"><b>Until</b></label>
