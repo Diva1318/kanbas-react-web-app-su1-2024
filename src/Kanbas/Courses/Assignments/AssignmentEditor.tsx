@@ -1,5 +1,15 @@
+import { useParams } from "react-router";
+import * as client from "./client";
+import { addAssignment} from "./reducer"
+
 export default function assignmentEditor({ dialogTitle, assignmentName, setAssignmentName, addAssignment }:
     { dialogTitle: string; assignmentName: string; setAssignmentName: (name: string) => void; addAssignment: () => void; }) {
+      
+      // const {cid} = useParams();
+      // const createAssignment = async (assignment: any) => {
+      //   const newAssignment = await client.createAssignment(cid as string, assignment);
+      //   dispatch(addAssignment(newAssignment));
+      // };
       return (
         <div id="wd-add-assignment-dialog" className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
           <div className="modal-dialog">
@@ -17,7 +27,7 @@ export default function assignmentEditor({ dialogTitle, assignmentName, setAssig
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
                   Cancel </button>
                 <button onClick={addAssignment} type="button" data-bs-dismiss="modal" className="btn btn-danger">
-                  Add Assignment </button>
+                  Save </button>
               </div>
             </div>
           </div>
@@ -25,4 +35,8 @@ export default function assignmentEditor({ dialogTitle, assignmentName, setAssig
       );
     }
     
+
+function dispatch(arg0: void) {
+  throw new Error("Function not implemented.");
+}
     

@@ -6,12 +6,13 @@
 // import ass from "../../Database/assignment.json";
 // import * as client from "./client";
 
-// export default function AssignmentEditor() {
+// export default function Addass() {
 //     const dispatch = useDispatch();
 //     const router = useNavigate();
 //     const {cid,aid} = useParams();
 //     console.log(useParams());
 //     const {pathname} = useLocation();
+    
 //     // const aid = pathname.split("/").pop();
 //     const [assignment, setAssignment] = useState({
 //       _id: "",
@@ -31,10 +32,10 @@
 //         dispatch(addAssignment(assignment));
 //         router(`/Kanbas/Courses/${cid}/Assignments`);
 //     }
-//     const saveAssignment  = async (assignment: any) => {
-//         const status = await client.updateAssignment(assignment);
-//         dispatch(updateAssignment(assignment));
-        
+//     const createAssignment = async (assignment: any) => {
+//         console.log(assignment);
+//         const newAssignment = await client.createAssignment(cid as string, assignment);
+//         dispatch(addAssignment(newAssignment));
 //       };
     
 //     useEffect(() => {
@@ -57,7 +58,12 @@
 //       }
 //     }, []);
     
-
+//     const [title, setTitle] = useState("");
+//     const [description, setDescription] = useState("");
+//     const [points, setPoints] = useState("");
+//     const [due, setDue] = useState("");
+//     const [available, setAvailable] = useState("");
+//     const [until, setUntil] = useState("");
 //     return (
 //         <div id="wd-assignments-editor">
 //             <div className="container">
@@ -115,9 +121,8 @@
 //                     <hr/>
 //                 </div>
 //                 <div className="mb-2">
-//                     {/* <h1>asuygdyuhs</h1> */}
 //                     <input type="button" className="btn btn-danger float-end ms-2" value="Save"
-//                            onClick={() => saveAssignment}/>
+//                            onClick={() => createAssignment()}/>
 //                     <Link key={'cancel'} to={`/Kanbas/Courses/${cid}/Assignments`}>
 //                         <input type="button" className="btn btn-secondary float-end" value="Cancel"/>
 //                     </Link>
@@ -128,12 +133,13 @@
 //     )
 // }
 
+
 import { useLocation, useNavigate, useParams } from "react-router";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import * as client from "./client"; // Make sure this is the correct path to your client file
-import { addAssignment, updateAssignment } from "./reducer";
+import { addAssignment } from "./reducer";
 import ass from "../../Database/assignment.json";
 
 export default function AssignmentEditor() {
@@ -149,6 +155,13 @@ export default function AssignmentEditor() {
   const [available, setAvailable] = useState("");
   const [until, setUntil] = useState("");
 
+  const createAssignment = async () => {
+    const assignment = { title, description, points, due, available, until };
+    const newAssignment = await client.createAssignment(cid as string, assignment);
+    dispatch(addAssignment(newAssignment));
+    navigate(`/Kanbas/Courses/${cid}/Assignments`);
+  };
+
   useEffect(() => {
     const foundAssignment = ass.find(a => a._id === aid);
     if (foundAssignment) {
@@ -159,94 +172,31 @@ export default function AssignmentEditor() {
       setAvailable(foundAssignment.ava);
       setUntil(foundAssignment.until);
     } else {
-      setTitle("");
-      setDescription("");
-      setPoints("");
-      setDue("");
-      setAvailable("");
-      setUntil("");
       console.error("Assignment not found");
     }
   }, [aid]);
-
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    switch (name) {
-      case "title":
-        setTitle(value);
-        break;
-      case "description":
-        setDescription(value);
-        break;
-      case "points":
-        setPoints(value);
-        break;
-      case "due":
-        setDue(value);
-        break;
-      case "available":
-        setAvailable(value);
-        break;
-      case "until":
-        setUntil(value);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const saveAssignment = async () => {
-    const assignment = {
-      _id: aid,
-      title,
-      desc: description,
-      points,
-      due,
-      ava: available,
-      until,
-    };
-    const status = await client.updateAssignment(assignment);
-    dispatch(updateAssignment(assignment));
-    navigate(`/Kanbas/Courses/${cid}/Assignments`);
-  };
 
   return (
     <div id="wd-assignments-editor">
       <div className="container">
         <div className="row input-group mb-2">
           <label htmlFor="wd-name" className="form-label">Assignment Name</label>
-          <input
-            id="wd-name"
-            className="form-control"
-            name="title"
-            value={title}
-            onChange={handleChange}
-          />
+          <input id="wd-name" className="form-control" name="title" value={title}
+                 onChange={(e) => setTitle(e.target.value)} />
         </div>
         <div className="row input-group mb-2">
-          <textarea
-            id="wd-description"
-            className="form-control"
-            rows={10}
-            cols={60}
-            onChange={handleChange}
-            name="description"
-            value={description}
-          ></textarea>
+          <textarea id="wd-description" className="form-control" rows={10} cols={60}
+                    onChange={(e) => setDescription(e.target.value)} name="description" value={description}>
+          </textarea>
         </div>
         <div className="row mb-2">
           <div className="col-3">
             <label htmlFor="wd-points" className="col-form-label float-end">Points</label>
           </div>
           <div className="col">
-            <input
-              id="wd-points"
-              type="number"
-              name="points"
-              className="form-control"
-              onChange={handleChange}
-              value={points}
-            />
+            <input id="wd-points" type="number" name="points" className="form-control"
+                   onChange={(e) => setPoints(e.target.value)}
+                   value={points} />
           </div>
         </div>
         <div className="row mb-2">
@@ -258,37 +208,20 @@ export default function AssignmentEditor() {
               <div className="card-body">
                 <div className="row mt-4">
                   <label htmlFor="wd-due-date"><b>Due</b></label>
-                  <input
-                    id="wd-due-date"
-                    type="date"
-                    className="form-control"
-                    value={due}
-                    name="due"
-                    onChange={handleChange}
-                  />
+                  <input id="wd-due-date" type="date" className="form-control"
+                         value={due} name="due" onChange={(e) => setDue(e.target.value)} />
                 </div>
                 <div className="row my-2">
                   <div className="col">
                     <label htmlFor="wd-available-from"><b>Available from</b></label>
-                    <input
-                      id="wd-available-from"
-                      type="date"
-                      className="form-control"
-                      value={available}
-                      name="available"
-                      onChange={handleChange}
-                    />
+                    <input id="wd-available-from" type="date" className="form-control"
+                           value={available} name="available" onChange={(e) => setAvailable(e.target.value)} />
                   </div>
                   <div className="col">
                     <label htmlFor="wd-available-until"><b>Until</b></label>
-                    <input
-                      id="wd-available-until"
-                      type="date"
-                      name="until"
-                      className="form-control"
-                      value={until}
-                      onChange={handleChange}
-                    />
+                    <input id="wd-available-until" type="date" name="until"
+                           className="form-control" value={until}
+                           onChange={(e) => setUntil(e.target.value)} />
                   </div>
                 </div>
               </div>
@@ -299,12 +232,8 @@ export default function AssignmentEditor() {
           <hr />
         </div>
         <div className="mb-2">
-          <input
-            type="button"
-            className="btn btn-danger float-end ms-2"
-            value="Save"
-            onClick={saveAssignment}
-          />
+          <input type="button" className="btn btn-danger float-end ms-2" value="Save"
+                 onClick={createAssignment} />
           <Link key={'cancel'} to={`/Kanbas/Courses/${cid}/Assignments`}>
             <input type="button" className="btn btn-secondary float-end" value="Cancel" />
           </Link>

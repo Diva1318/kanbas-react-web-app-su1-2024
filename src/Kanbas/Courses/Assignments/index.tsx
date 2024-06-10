@@ -6,7 +6,9 @@ import {useSelector, useDispatch} from "react-redux";
 import AssignmentControlButtons from "./AssignmentsControlButtons";
 import {BiCaretDown, BiEdit, BiNotepad} from "react-icons/bi";
 import LessonControlButtons from "./LessonControlButtons";
-
+import {setAssignments, addAssignment} from "./reducer"
+import { useEffect } from "react";
+import * as client from "./client";
 
 export default function Assignments() {
     const {cid} = useParams();
@@ -15,6 +17,19 @@ export default function Assignments() {
     const cidAssignments = assignments.filter((assignment: any) => assignment.course === cid);
     const dispatch = useDispatch();
 
+    const removeAssignment = async (assignmentId: string) => {
+        await client.deleteAssignment(assignmentId);
+        dispatch(deleteAssignment(assignmentId));
+      };
+
+    const fetchAssignments = async () => {
+        const assignments = await client.findAssignmentsForCourse(cid as string);
+        dispatch(setAssignments(assignments));
+      };
+      useEffect(() => {
+        fetchAssignments();
+      }, []);
+    
     return (
         <div id="wd-assignments">
             <AssignmentsControls cid={cid!}/>
@@ -52,9 +67,8 @@ export default function Assignments() {
                                 </div>
                                 <div className="col float-end">
                                     <LessonControlButtons assignmentId={item._id}
-                                                          deleteAssignment={(assignmentId) => {
-                                                              dispatch(deleteAssignment(assignmentId));
-                                                          }}/>
+                                                          deleteAssignment={(assignmentId) => { removeAssignment(assignmentId); }}
+                                                          />
                                 </div>
                             </div>
                         </li>
