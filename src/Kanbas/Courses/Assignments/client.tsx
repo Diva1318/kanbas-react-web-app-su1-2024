@@ -25,7 +25,5 @@ export const findAssignmentsForCourse = async (courseId: string) => {
     .get(`${COURSES_API}/${courseId}/assignments`);
   return response.data;
 };
-// export function updateAssignment(module: NodeModule) {
-//     throw new Error("Function not implemented.");
-// }
+
 

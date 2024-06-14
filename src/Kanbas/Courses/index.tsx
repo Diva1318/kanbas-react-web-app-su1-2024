@@ -10,6 +10,8 @@ import { Navigate, Route, Routes, useParams, useLocation   } from "react-router"
 import { FaBars } from "react-icons/fa";
 import { FaAlignJustify } from "react-icons/fa6";
 import Addass from "./Assignments/Addass";
+import PeopleTable from "./People/Table";
+import PeopleDetails from "./People/Details";
 export default function Courses({ courses }: { courses: any[]; }) {
   const { cid, aid,uid} = useParams();
   const course = courses.find((course) => course._id === cid);
@@ -17,6 +19,10 @@ export default function Courses({ courses }: { courses: any[]; }) {
   const user = users.find((user) => user._id === uid);
 
   const { pathname } = useLocation();
+  function fetchUsers(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div id="wd-courses">
         
@@ -44,6 +50,11 @@ export default function Courses({ courses }: { courses: any[]; }) {
               <Route path="Assignments/add"
                      element={<Addass />} />
               <Route path="Grades/" element={<Grades/>} />
+              <Route path="People" element={<PeopleTable />} />
+              {/* <Route path="People/:uid" element={<PeopleTable />} /> */}
+              <Route path="People/:uid" element={<PeopleDetails fetchUsers={fetchUsers}/>} />
+
+              {/* <Route path="/Kanbas/Courses/:cid/People/:uid" element={<PeopleDetails />} /> */}
             </Routes>
             </div>
   </div>

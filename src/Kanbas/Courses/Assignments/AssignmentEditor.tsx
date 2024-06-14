@@ -4,12 +4,7 @@ import { addAssignment} from "./reducer"
 
 export default function assignmentEditor({ dialogTitle, assignmentName, setAssignmentName, addAssignment }:
     { dialogTitle: string; assignmentName: string; setAssignmentName: (name: string) => void; addAssignment: () => void; }) {
-      
-      // const {cid} = useParams();
-      // const createAssignment = async (assignment: any) => {
-      //   const newAssignment = await client.createAssignment(cid as string, assignment);
-      //   dispatch(addAssignment(newAssignment));
-      // };
+
       return (
         <div id="wd-add-assignment-dialog" className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
           <div className="modal-dialog">
