@@ -122,8 +122,9 @@
 //       <b>Section:</b> {user.section} <br />      <b>Total Activity:</b> {user.totalActivity} </div> ); }
 
 import { useEffect, useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
+import { FaPencil } from "react-icons/fa6";
+import { FaCheck, FaUserCircle } from "react-icons/fa";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import * as client from "./client";
 import { deleteUser } from "./client";
@@ -132,14 +133,28 @@ export default function PeopleDetails(
   { fetchUsers }:
   { fetchUsers: () => void; }) {
    const navigate = useNavigate();
+
    const deleteUser = async (uid: string) => {
      await client.deleteUser(uid);
-     fetchUsers();
+    //  fetchUsers();
      navigate(`/Kanbas/Courses/${cid}/People`);
    };
  
   const { uid, cid } = useParams();
   const [user, setUser] = useState<any>({});
+
+  const [name, setName] = useState("");
+  const [editing, setEditing] = useState(false);
+  const saveUser = async () => {
+    const [firstName, lastName] = name.split(" ");
+    const updatedUser = { ...user, firstName, lastName };
+    await client.updateUser(updatedUser);
+    setUser(updatedUser);
+    setEditing(false);
+    // fetchUsers();
+    navigate(`/Kanbas/Courses/${cid}/People`);
+  };
+
 
   const fetchUser = async () => {
     if (!uid) return;
@@ -166,7 +181,24 @@ export default function PeopleDetails(
       </div>
       <hr />
       <div className="text-danger fs-4">
-        {user.firstName} {user.lastName}
+        {!editing && (
+          <FaPencil onClick={() => setEditing(true)}
+                    className="float-end fs-5 mt-2" /> )}
+        {editing && (
+          <FaCheck onClick={() => saveUser()}
+                   className="float-end fs-5 mt-2 me-2" /> )}
+        {!editing && (
+          <div onClick={() => setEditing(true)}>
+            {user.firstName} {user.lastName}</div>)}
+        {user && editing && (
+          <input className="form-control w-50"
+            defaultValue={`${user.firstName} ${user.lastName}`}
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") { saveUser(); }}}
+          />
+        )}
+
       </div>
       <b>Roles:</b> {user.role} <br />
       <b>Login ID:</b> {user.loginId} <br />
@@ -174,6 +206,7 @@ export default function PeopleDetails(
       <b>Total Activity:</b> {user.totalActivity}
       <hr />
       <button onClick={() => deleteUser(uid)} className="btn btn-danger float-end" > Delete </button>
+
       <button onClick={() => navigate(`/Kanbas/Courses/${cid}/People`)}
               className="btn btn-secondary float-start float-end me-2" > Cancel </button>
 

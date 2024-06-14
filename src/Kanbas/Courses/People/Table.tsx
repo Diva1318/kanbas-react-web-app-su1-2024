@@ -104,6 +104,7 @@
 import React, { useState, useEffect } from "react";
 import * as client from "./client";
 import { Link, useParams } from "react-router-dom";
+import { FaPlus } from "react-icons/fa6";
 export default function PeopleTable() {
   const [users, setUsers] = useState<any[]>([]);
   const [role, setRole] = useState("");
@@ -128,6 +129,18 @@ export default function PeopleTable() {
       fetchUsers();
     }
   };
+  const createUser = async () => {
+    const user = await client.createUser({
+      firstName: "New",
+      lastName: `User${users.length + 1}`,
+      username: `newuser${Date.now()}`,
+      password: "password123",
+      section: "S101",
+      role: "STUDENT",
+    });
+    setUsers([...users, user]);
+  };
+
 
   const fetchUsers = async () => {
     const users = await client.findAllUsers();
@@ -138,6 +151,10 @@ export default function PeopleTable() {
   }, []);
   return (
     <div id="wd-people-table">
+      <button onClick={createUser} className="float-end btn btn-danger">
+        <FaPlus className="me-2" />
+        People
+      </button>
       
       <input onChange={(e) => filterUsersByName(e.target.value)} placeholder="Search people"
              className="form-control float-start w-25 me-2" />
