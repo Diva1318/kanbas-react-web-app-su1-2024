@@ -7,6 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 export default function KanbasNavigation() {
   const { pathname } = useLocation();
   const links = [
+    
     { label: "Dashboard", path: "/Kanbas/Dashboard", icon: AiOutlineDashboard },
     { label: "Courses",   path: "/Kanbas/Dashboard", icon: LiaBookSolid },
     { label: "Calendar",  path: "/Kanbas/Calendar",  icon: IoCalendarOutline },
