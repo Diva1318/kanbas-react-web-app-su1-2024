@@ -13,8 +13,9 @@ const modulesSlice = createSlice({
 
     addModule: (state, { payload: module }) => {
       const newModule: any = {
-        _id: new Date().getTime().toString(),
+        // _id: new Date().getTime().toString(),
         lessons: [],
+        _id: module._id,
         name: module.name,
         course: module.course,
       };

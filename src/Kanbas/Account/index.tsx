@@ -6,6 +6,7 @@ import Profile from "./Profile";
 import Signup from "./Signup";
 export default function Account() {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
+    
   return (
     <div>
       <div className="d-flex">
@@ -15,6 +16,7 @@ export default function Account() {
         <div className="flex-fill p-4 pt-0">
           <Routes>
             <Route path="/" element={ <Navigate to={ currentUser ? "/Kanbas/Account/Profile" : "/Kanbas/Account/Signin" }/>} />
+            console.log(currentUser.username);
             <Route path="/Signin" element={<Signin />} />
             <Route path="/Signup" element={<Signup />} />
             <Route path="/Profile" element={<Profile />} />

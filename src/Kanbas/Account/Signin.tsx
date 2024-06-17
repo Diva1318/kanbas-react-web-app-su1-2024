@@ -10,14 +10,18 @@ export default function Signin() {
   const dispatch = useDispatch();
 
   const signin = async () => {
-    try {
-        const currentUser = await client.signin(credentials);
+    // try {
+    //     const currentUser = await client.signin(credentials);
+    //     dispatch(setCurrentUser(currentUser));
+    //     console.log("swd");
+    //     navigate("/Kanbas/Account/Profile");
+    //   } catch (err: any) {
+    //     setError(err.response.data.message);
+    //   }
+    const currentUser = await client.signin(credentials);
         dispatch(setCurrentUser(currentUser));
+        console.log("swd");
         navigate("/Kanbas/Account/Profile");
-      } catch (err: any) {
-        setError(err.response.data.message);
-      }
-  
   };
   return (
     <div>

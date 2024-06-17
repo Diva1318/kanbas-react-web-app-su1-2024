@@ -105,6 +105,7 @@ import React, { useState, useEffect } from "react";
 import * as client from "./client";
 import { Link, useParams } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
+import PeopleDetails from "./Details";
 export default function PeopleTable() {
   const [users, setUsers] = useState<any[]>([]);
   const [role, setRole] = useState("");
@@ -155,7 +156,8 @@ export default function PeopleTable() {
         <FaPlus className="me-2" />
         People
       </button>
-      
+      <PeopleDetails fetchUsers={fetchUsers} />
+
       <input onChange={(e) => filterUsersByName(e.target.value)} placeholder="Search people"
              className="form-control float-start w-25 me-2" />
 

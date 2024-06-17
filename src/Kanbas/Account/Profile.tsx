@@ -1,21 +1,33 @@
 import * as client from "./client";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "./reducer";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 export default function Profile() {
   const [profile, setProfile] = useState<any>({});
+// const [profile, setProfile] = useState({
+//     username: "", password: "",
+//     firstName: "", lastName: "", dob: "", email: "", role: "USER"});
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+//   const currentUser = useSelector((state: any) => state.account.currentUser);
   const fetchProfile = async () => {
-    try {
-      const account = await client.profile();
-      setProfile(account);
-    } catch (err: any) {
-      navigate("/Kanbas/Account/Signin");
+    // try {
+    //     console.log("bdwhbvawh");
+    //   const account = await client.profile();
+    //   console.log(account);
+    //   setProfile(account);
+    // } catch (err: any) {
+    //   navigate("/Kanbas/Account/Signin");
+    // }
+    const fetchProfile = async () => {
+        console.log("bdwhbvawh");
+        const account = await client.profile();
+        setProfile(account);
+        console.log("bdwhbvawh");
     }
   };
-
 
 
   const signout = async () => {
@@ -25,6 +37,7 @@ export default function Profile() {
   };
 
   useEffect(() => { fetchProfile(); }, []);
+
   return (
     <div>
       <h1>Profile</h1>

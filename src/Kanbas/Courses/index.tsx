@@ -52,7 +52,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
               <Route path="Grades/" element={<Grades/>} />
               <Route path="People" element={<PeopleTable />} />
               {/* <Route path="People/:uid" element={<PeopleTable />} /> */}
-              <Route path="People/:uid" element={<PeopleDetails fetchUsers={fetchUsers}/>} />
+              <Route path="People/:uid" element={<PeopleTable />} />
 
               {/* <Route path="/Kanbas/Courses/:cid/People/:uid" element={<PeopleDetails />} /> */}
             </Routes>
