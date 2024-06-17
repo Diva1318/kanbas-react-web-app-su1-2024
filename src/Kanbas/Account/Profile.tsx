@@ -12,21 +12,22 @@ export default function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 //   const currentUser = useSelector((state: any) => state.account.currentUser);
-  const fetchProfile = async () => {
-    // try {
-    //     console.log("bdwhbvawh");
-    //   const account = await client.profile();
-    //   console.log(account);
-    //   setProfile(account);
-    // } catch (err: any) {
-    //   navigate("/Kanbas/Account/Signin");
-    // }
-    const fetchProfile = async () => {
+const fetchProfile = async () => {
+
+    try {
         console.log("bdwhbvawh");
-        const account = await client.profile();
-        setProfile(account);
-        console.log("bdwhbvawh");
+      const account = await client.profile();
+      console.log(account);
+      setProfile(account);
+    } catch (err: any) {
+      navigate("/Kanbas/Account/Signin");
     }
+    // const fetchProfile = async () => {
+    //     console.log("bdwhbvawh");
+    //     const account = await client.profile();
+    //     setProfile(account);
+    //     console.log("bdwhbvawh");
+    // }
   };
 
 
@@ -36,7 +37,7 @@ export default function Profile() {
     navigate("/Kanbas/Account/Signin");
   };
 
-  useEffect(() => { fetchProfile(); }, []);
+//   useEffect(() => { fetchProfile(); }, []);
 
   return (
     <div>
